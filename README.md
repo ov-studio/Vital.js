@@ -1,2 +1,2 @@
-# Vital
-Front End Framework
+# Vital.js
+WIP
