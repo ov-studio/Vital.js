@@ -13,7 +13,7 @@
 // Class: Proxy //
 ///////////////////
 
-vNetworkify.utility.proxy = CUtility.createClass({})
+vNetworkify.utility.proxy = vNetworkify.utility.createClass({})
 
 
 /////////////////////
@@ -34,7 +34,8 @@ vNetworkify.utility.proxy.addMethod("create", function(data, exec) {
 // @Desc: Instance Constructor
 vNetworkify.utility.proxy.addMethod("constructor", function(self, data, exec) {
     self.buffer = new WeakMap()
-    {self.proxy, self.revoke} = Proxy.revocable(data, {
+    // /{self.proxy, self.revoke}
+    var test = Proxy.revocable(data, {
         set(data, property, value) {
             data[property] = value
             exec(data, property, value)
@@ -54,6 +55,7 @@ vNetworkify.utility.proxy.addMethod("constructor", function(self, data, exec) {
             return true
         }
     })
+    console.log(test)
 }, "isInstance")
 
 // @Desc: Verifies instance's validity
