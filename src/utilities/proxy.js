@@ -31,7 +31,8 @@ vNetworkify.utility.proxy.addMethod("create", function(data, exec) {
 // Instance Members //
 ///////////////////////
 
-function createProxy(self, data) {
+// @Desc: Handles proxy initialization
+const onProxyInitialize = function(self, data) {
     const cProxy = Proxy.revocable(data, {
         set(data, property, value) {
             data[property] = value
@@ -41,7 +42,7 @@ function createProxy(self, data) {
         get(data, property) {
             const value = data[property]
             if (vNetworkify.utility.isObject(value)) {
-                if (!self.buffer.has(value)) self.buffer.set(value, createProxy(self, value, self.exec))
+                if (!self.buffer.has(value)) self.buffer.set(value, onProxyInitialize(self, value, self.exec))
                 return self.buffer.get(value)
             }
             return value
@@ -60,7 +61,7 @@ function createProxy(self, data) {
 vNetworkify.utility.proxy.addMethod("constructor", function(self, data, exec) {
     self.buffer = new WeakMap(), self.revoke = []
     self.data = data, self.exec = exec
-    self.proxy = createProxy(self, self.data)
+    self.proxy = onProxyInitialize(self, self.data)
 }, "isInstance")
 
 // @Desc: Verifies instance's validity
