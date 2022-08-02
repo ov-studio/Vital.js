@@ -1,0 +1,43 @@
+{
+    "name": "@vstudio/vital",
+    "version": "1.0.0",
+    "author": "ᴏᴠ <crazynuggets@outlook.com> (https://github.com/ov-studio)",
+    "private": false,
+    "license": "GPL-3.0",
+    "description": "Lightweight yet Efficient JavaScript UI Framework",
+    "homepage": "https://github.com/ov-studio/Vital.js#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ov-studio/Vital.js.git"
+    },
+    "bugs": {
+        "url": "https://github.com/ov-studio/Vital.js/issues"
+    },
+    "keywords": [
+        "ov",
+        "vstudio",
+        "web-dev",
+        "networkify",
+        "vital",
+        "library",
+        "framework",
+        "frontend",
+        "networking",
+        "lightweight",
+        "interface",
+        "spa"
+    ],
+    "main": "./src/importer",
+    "scripts": {
+        "debug": "node ./debug",
+        "build": "webpack"
+    },
+    "dependencies": {
+        "@vstudio/vnetworkify": "2.4.4"
+    },
+    "devDependencies": {
+        "webpack": "^5.73.0",
+        "webpack-cli": "^4.10.0",
+        "webpack-node-externals": "^3.0.0"
+    }
+}
