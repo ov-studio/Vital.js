@@ -57,7 +57,7 @@ const onProxyInitialize = function(self, data) {
     return cProxy.proxy
 }
 
-// @Desc: Instance Constructor
+// @Desc: Instance constructor
 vNetworkify.utility.proxy.addMethod("constructor", function(self, data, exec) {
     self.buffer = new WeakMap(), self.revoke = []
     self.data = data, self.exec = exec
