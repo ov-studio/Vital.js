@@ -78,20 +78,3 @@ vNetworkify.utility.proxy.addInstanceMethod("destroy", function(self) {
     delete self.buffer
     return true
 })
-
-
-// TODO: WIP USAGE
-const test = {
-    testA: "valueA",
-    testB: {
-        testC: "valueC"
-    }
-}
-const wew = vNetworkify.utility.proxy.create(test, function(_, property, value) {
-    console.log(property, value)
-})
-const proxy = wew.proxy
-proxy.testNew = "llll"
-proxy.testB.testD = "lol"
-console.log(test)
-console.log(proxy)
