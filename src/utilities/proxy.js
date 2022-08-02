@@ -73,8 +73,7 @@ vNetworkify.utility.proxy.addInstanceMethod("isInstance", function(self) {
 vNetworkify.utility.proxy.addInstanceMethod("destroy", function(self) {
     self.isUnloaded = true
     for (const i in self.revoke) {
-        const j = self.revoke[i]
-        j()
+        self.revoke[i]()
     }
     delete self.buffer
     return true
