@@ -25,7 +25,7 @@ vNetworkify.utility.createProxy = function(object, exec) {
         },
         get(object, property) {
             const value = object[property]
-            if (value && typeof value == "object") {
+            if (vNetworkify.utility.isObject(value)) {
                 if (!cBuffer.has(value)) cBuffer.set(value, createProxy(value, exec))
                 return cBuffer.get(value)
             }
@@ -33,9 +33,7 @@ vNetworkify.utility.createProxy = function(object, exec) {
         },
         deleteProperty(object, property) {
             const value = object[property]
-            if (value && typeof value == "object") {
-                if (cBuffer.has(value)) cBuffer.delete(value)
-            }
+            if (vNetworkify.utility.isObject(value) && cBuffer.has(value)) cBuffer.delete(value)
             return true
         }
     })
