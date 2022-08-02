@@ -13,26 +13,26 @@
 // Class: Proxy //
 ///////////////////
 
-// @Desc: Creates a class/object's proxy
-vNetworkify.utility.createProxy = function(object, exec) {
-    if ((!vNetworkify.utility.isObject(object) && !vNetworkify.utility.isClass(object)) || !vNetworkify.utility.isFunction(exec)) return false
+// @Desc: Creates a object/class's proxy
+vNetworkify.utility.createProxy = function(data, exec) {
+    if ((!vNetworkify.utility.isObject(data) && !vNetworkify.utility.isClass(data)) || !vNetworkify.utility.isFunction(exec)) return false
     const cBuffer = new WeakMap()
-    return new Proxy(object, {
-        set(object, property, value) {
-            object[property] = value
-            exec(object, property, value)
+    return new Proxy(data, {
+        set(data, property, value) {
+            data[property] = value
+            exec(data, property, value)
             return true
         },
-        get(object, property) {
-            const value = object[property]
+        get(data, property) {
+            const value = data[property]
             if (vNetworkify.utility.isObject(value)) {
                 if (!cBuffer.has(value)) cBuffer.set(value, createProxy(value, exec))
                 return cBuffer.get(value)
             }
             return value
         },
-        deleteProperty(object, property) {
-            const value = object[property]
+        deleteProperty(data, property) {
+            const value = data[property]
             if (vNetworkify.utility.isObject(value) && cBuffer.has(value)) cBuffer.delete(value)
             return true
         }
