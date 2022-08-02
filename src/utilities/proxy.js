@@ -91,7 +91,8 @@ const test = {
 const wew = vNetworkify.utility.proxy.create(test, function(_, property, value) {
     console.log(property, value)
 })
-wew.proxy.testNew = "llll"
-wew.proxy.testB.testD = "lol"
+const proxy = wew.proxy
+proxy.testNew = "llll"
+proxy.testB.testD = "lol"
 console.log(test)
-console.log(wew.proxy)
+console.log(proxy)
