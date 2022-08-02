@@ -29,7 +29,7 @@ vNetworkify.utility.proxy.addMethod("create", function(data, exec) {
 
 ///////////////////////
 // Instance Members //
-//////////////////////
+///////////////////////
 
 // @Desc: Instance Constructor
 vNetworkify.utility.proxy.addMethod("constructor", function(self, data, exec) {
