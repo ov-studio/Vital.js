@@ -13,7 +13,7 @@
 // Class: Template //
 //////////////////////
 
-vNetworkify.utility.template = vNetworkify.utility.createClass({
+vNetworkify.util.template = vNetworkify.util.createClass({
     buffer: {}
 })
 
@@ -23,16 +23,16 @@ vNetworkify.utility.template = vNetworkify.utility.createClass({
 /////////////////////
 
 // @Desc: Creates a fresh template from URL
-vNetworkify.utility.template.addMethod("create", function(name, data) {
-    if (!vNetworkify.utility.isString(name) || !vNetworkify.utility.isString(data) || vNetworkify.utility.template.buffer[name]) return false
-    vNetworkify.utility.template.buffer[name] = new vNetworkify.utility.template(name, data)
-    return vNetworkify.utility.template.buffer[name]
+vNetworkify.util.template.addMethod("create", function(name, data) {
+    if (!vNetworkify.util.isString(name) || !vNetworkify.util.isString(data) || vNetworkify.util.template.buffer[name]) return false
+    vNetworkify.util.template.buffer[name] = new vNetworkify.util.template(name, data)
+    return vNetworkify.util.template.buffer[name]
 })
 
 // @Desc: Creates a fresh template from URL
-vNetworkify.utility.template.addMethod("destroy", function(name) {
-    if (!vNetworkify.utility.isString(name) || !vNetworkify.utility.isObject(vNetworkify.utility.template.buffer[name])) return false
-    return vNetworkify.utility.template.buffer[name].destroy()
+vNetworkify.util.template.addMethod("destroy", function(name) {
+    if (!vNetworkify.util.isString(name) || !vNetworkify.util.isObject(vNetworkify.util.template.buffer[name])) return false
+    return vNetworkify.util.template.buffer[name].destroy()
 })
 
 
@@ -41,13 +41,13 @@ vNetworkify.utility.template.addMethod("destroy", function(name) {
 ///////////////////////
 
 // @Desc: Instance constructor
-vNetworkify.utility.proxy.addMethod("constructor", function(self, data) {
+vNetworkify.util.proxy.addMethod("constructor", function(self, data) {
     self.template = document.createElement("template")
     self.template.innerHTML = data
 }, "isInstance")
 
 
-vNetworkify.utility.proxy.addMethod("destroy", function(self) {
+vNetworkify.util.proxy.addMethod("destroy", function(self) {
     // TODO: WIP DESTROY IT..
 })
 
