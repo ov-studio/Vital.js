@@ -9,13 +9,32 @@
 ----------------------------------------------------------------*/
 
 
-//////////////////////
-// Class: Template //
-//////////////////////
+/////////////////
+// Class: VCL //
+/////////////////
 
-vNetworkify.utility.vcl = vNetworkify.utility.createClass({
-    buffer: {}
-})
+CVCL = vNetworkify.util.createClass()
+vNetworkify.util.vcl = CVCL.public
+CVCL.private.types = {
+    init: ":",
+    comment: "#",
+    tab: "\t",
+    space: " ",
+    newline: "\n",
+    carriageline: "\r",
+    list: "-",
+    negative: "-",
+    decimal: ".",
+    bool: {
+        ["true"]: "true",
+        ["false"]: "false"
+    },
+    string: {
+        ["`"]: true,
+        ["'"]: true,
+        ["\""]: true
+    }
+}
 
 
 /////////////////////
@@ -23,16 +42,15 @@ vNetworkify.utility.vcl = vNetworkify.utility.createClass({
 /////////////////////
 
 // @Desc: Creates a fresh template from URL
-vNetworkify.utility.template.addMethod("create", function(name, data) {
-    if (!vNetworkify.utility.isString(name) || !vNetworkify.utility.isString(data) || vNetworkify.utility.template.buffer[name]) return false
-    vNetworkify.utility.template.buffer[name] = new vNetworkify.utility.template(name, data)
-    return vNetworkify.utility.template.buffer[name]
+CVCL.public.addMethod("create", function(name, data) {
+    if (!vNetworkify.util.isString(name) || !vNetworkify.util.isString(data) || CVCL.public.buffer[name]) return false
+    CVCL.public.buffer[name] = new vNetworkify.util.template(name, data)
+    return CVCL.public.buffer[name]
 })
 
 // @Desc: Creates a fresh template from URL
-vNetworkify.utility.template.addMethod("destroy", function(name) {
-    if (!vNetworkify.utility.isString(name) || !vNetworkify.utility.isObject(vNetworkify.utility.template.buffer[name])) return false
-    return vNetworkify.utility.template.buffer[name].destroy()
+CVCL.public.addMethod("destroy", function(name) {
+    if (!vNetworkify.util.isString(name) || !vNetworkify.util.isObject(CVCL.public.buffer[name])) return false
+    return CVCL.public.buffer[name].destroy()
 })
 
-console.log("bump")
