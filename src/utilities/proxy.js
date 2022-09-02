@@ -29,27 +29,28 @@ CProxy.public.addMethod("create", function(data, exec) {
 
 // @Desc: Initializes a proxy instance
 CProxy.private.onInitialize = function(self, data) {
+    const private = CProxy.instance.get(self)
     const cProxy = Proxy.revocable(data, {
         set(data, property, value) {
             data[property] = value
-            self.exec(data, property, value)
+            private.exec(data, property, value)
             return true
         },
         get(data, property) {
             const value = data[property]
             if (vNetworkify.utility.isObject(value)) {
-                if (!self.buffer.has(value)) self.buffer.set(value, CProxy.private.onInitialize(self, value, self.exec))
-                return self.buffer.get(value)
+                if (!private.buffer.has(value)) private.buffer.set(value, CProxy.private.onInitialize(self, value, private.exec))
+                return private.buffer.get(value)
             }
             return value
         },
         deleteProperty(data, property) {
             const value = data[property]
-            if (vNetworkify.utility.isObject(value) && self.buffer.has(value)) self.buffer.delete(value)
+            if (vNetworkify.utility.isObject(value) && private.buffer.has(value)) private.buffer.delete(value)
             return true
         }
     })
-    self.revoke.push(cProxy.revoke)
+    private.revoke.push(cProxy.revoke)
     return cProxy.proxy
 }
 
@@ -60,17 +61,17 @@ CProxy.private.onInitialize = function(self, data) {
 
 // @Desc: Instance constructor
 CProxy.public.addMethod("constructor", function(self, data, exec) {
-    self.buffer = new WeakMap(), self.revoke = []
-    self.data = data, self.exec = exec
-    self.proxy = CProxy.private.onInitialize(self, self.data)
+    const private = CProxy.instance.get(self)
+    private.buffer = new WeakMap(), private.revoke = []
+    private.data = data, private.exec = exec
+    private.proxy = CProxy.private.onInitialize(self, private.data)
 })
 
 // @Desc: Destroys the instance
 CProxy.public.addInstanceMethod("destroy", function(self) {
-    self.isUnloaded = true
-    for (const i in self.revoke) {
-        self.revoke[i]()
+    for (const i in private.revoke) {
+        private.revoke[i]()
     }
-    delete self.buffer
+    delete private.buffer
     return true
 })
