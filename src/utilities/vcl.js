@@ -74,23 +74,18 @@ CVCL.private.parseComment = (parser, buffer, rw) => {
 CVCL.private.parseBoolean = (parser, buffer, rw) => {
     if (!parser.isType || (parser.isType == "bool")) {
         if (!parser.isType) {
-            /*
-            for i, j in imports.pairs(CVCL.private.types.bool) do
-                if string.sub(buffer, parser.ref, parser.ref + #i - 1) == i then
+            for (const i in CVCL.private.types.bool) {
+                if (buffer.sub(parser.ref, parser.ref + #i - 1) == i) {
                     rw = i
                     break
-                end
-            end
-            */
+                }
+            }
         }
-        /*
-        if not parser.isType && CVCL.private.types.bool[rw] then
+        if (!parser.isType && CVCL.private.types.bool[rw])
             parser.isSkipAppend, parser.ref, parser.isType, parser.value = true, parser.ref + #rw - 1, "bool", rw
-        elseif parser.isType then
-            if rw == CVCL.private.types.newline then parser.isSkipAppend, parser.isParsed = true, true
-            else return false end
-        end
-        */
+        else if (parser.isType)
+            if (rw == CVCL.private.types.newline) parser.isSkipAppend, parser.isParsed = true, true
+            else return false
     }
     return true
 }
