@@ -43,16 +43,20 @@ CVCL.private.types = {
 
 // @Desc: Verifies whether rw buffer is void
 CVCL.private.isVoid = (rw) => {
-    return (!rw || !rw.match("\W") && true) || false
+    return (rw.match("\W") && true) || false
 }
 
 CVCL.private.fetch = (rw, index) => {
-    return (rw && rw.substring(index, index)) || false
+    return rw.substring(index, index)
 }
 
 CVCL.private.fetchLine = (rw, index) => {
-    const rwLines = rw.substring(0, index).split(CVCL.private.types.newline)
-    return math.max(1, #rwLines), rwLines[(#rwLines)] || ""
+    if (rw) {
+        const rwLines = rw.substring(0, index).split(CVCL.private.types.newline)
+        const rwLength = rwLines.length()
+        return [math.max(1, rwLength), rwLines[rwLength] || ""]
+    }
+    return false
 }
 
 CVCL.private.parseComment = (parser, buffer, rw) => {
