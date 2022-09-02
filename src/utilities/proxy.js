@@ -22,13 +22,13 @@ vNetworkify.util.proxy = CProxy.public
 /////////////////////
 
 // @Desc: Creates a fresh proxy of desired object/class
-CProxy.public.addMethod("create", function(data, exec) {
+CProxy.public.addMethod("create", (data, exec) => {
     if ((!vNetworkify.util.isObject(data) || !vNetworkify.util.isClass(data)) || !vNetworkify.util.isFunction(exec)) return false
     return CProxy.public.createInstance(data, exec)
 })
 
 // @Desc: Initializes a proxy instance
-CProxy.private.onInitialize = function(self, data) {
+CProxy.private.onInitialize = (self, data) => {
     const private = CProxy.instance.get(self)
     const cProxy = Proxy.revocable(data, {
         set(data, property, value) {
@@ -60,7 +60,7 @@ CProxy.private.onInitialize = function(self, data) {
 ///////////////////////
 
 // @Desc: Instance constructor
-CProxy.public.addMethod("constructor", function(self, data, exec) {
+CProxy.public.addMethod("constructor", (self, data, exec) => {
     const private = CProxy.instance.get(self)
     private.buffer = new WeakMap(), private.revoke = []
     private.data = data, private.exec = exec
