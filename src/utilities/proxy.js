@@ -21,7 +21,7 @@ vNetworkify.utility.proxy = CProxy.public
 // Static Members //
 /////////////////////
 
-// @Desc: Creates a fresh proxy on desired object/class
+// @Desc: Creates a fresh proxy of desired object/class
 CProxy.public.addMethod("create", function(data, exec) {
     if ((!vNetworkify.utility.isObject(data) || !vNetworkify.utility.isClass(data)) || !vNetworkify.utility.isFunction(exec)) return false
     return new CProxy(data, exec)
@@ -68,10 +68,11 @@ CProxy.public.addMethod("constructor", function(self, data, exec) {
 })
 
 // @Desc: Destroys the instance
-CProxy.public.addInstanceMethod("destroy", function(self) {
+CProxy.public.addInstanceMethod("destroy", (self) => {
+    const private = CProxy.instance.get(self)
     for (const i in private.revoke) {
         private.revoke[i]()
     }
-    delete private.buffer
+    self.destroyInstance()
     return true
 })
