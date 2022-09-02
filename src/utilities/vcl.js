@@ -76,16 +76,16 @@ CVCL.private.parseBoolean = (parser, buffer, rw) => {
     if (!parser.isType || (parser.isType == "bool")) {
         if (!parser.isType) {
             for (const i in CVCL.private.types.bool) {
-                if (buffer.sub(parser.ref, parser.ref + #i - 1) == i) {
+                if (buffer.sub(parser.ref, parser.ref + i.length() - 1) == i) {
                     rw = i
                     break
                 }
             }
         }
         if (!parser.isType && CVCL.private.types.bool[rw])
-            parser.isSkipAppend, parser.ref, parser.isType, parser.value = true, parser.ref + #rw - 1, "bool", rw
+            parser.isSkipAppend = true, parser.ref = parser.ref + rw.length() - 1, parser.isType = "bool", parser.value = rw
         else if (parser.isType)
-            if (rw == CVCL.private.types.newline) parser.isSkipAppend, parser.isParsed = true, true
+            if (rw == CVCL.private.types.newline) parser.isSkipAppend = true, parser.isParsed = true
             else return false
     }
     return true
