@@ -41,17 +41,17 @@ CVCL.private.types = {
 // Static Members //
 /////////////////////
 
-// @Desc: Verifies whether rw buffer is void
+// @Desc: Verifies whether rw is void
 CVCL.private.isVoid = (rw) => {
     return (rw.match("\W") && true) || false
 }
 
-// @Desc: Fetches rw buffer by index
+// @Desc: Fetches rw by index
 CVCL.private.fetch = (rw, index) => {
     return rw.substring(index, index)
 }
 
-// @Desc: Fetches rw buffer's line by index
+// @Desc: Fetches rw's line by index
 CVCL.private.fetchLine = (rw, index) => {
     if (rw) {
         const rwLines = rw.substring(0, index).split(CVCL.private.types.newline)
@@ -71,6 +71,7 @@ CVCL.private.parseComment = (parser, buffer, rw) => {
     return true
 }
 
+// @Desc: Parses boolean
 CVCL.private.parseBoolean = (parser, buffer, rw) => {
     if (!parser.isType || (parser.isType == "bool")) {
         if (!parser.isType) {
