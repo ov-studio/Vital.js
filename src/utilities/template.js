@@ -13,9 +13,10 @@
 // Class: Template //
 //////////////////////
 
-vNetworkify.util.template = vNetworkify.util.createClass({
-    buffer: {}
-})
+const CTemplate = vNetworkify.util.createClass({})
+vNetworkify.util.template = CProxy.public
+CTemplate.private.buffer = {}
+
 
 
 /////////////////////
@@ -23,16 +24,16 @@ vNetworkify.util.template = vNetworkify.util.createClass({
 /////////////////////
 
 // @Desc: Creates a fresh template from URL
-vNetworkify.util.template.addMethod("create", function(name, data) {
-    if (!vNetworkify.util.isString(name) || !vNetworkify.util.isString(data) || vNetworkify.util.template.buffer[name]) return false
-    vNetworkify.util.template.buffer[name] = new vNetworkify.util.template(name, data)
-    return vNetworkify.util.template.buffer[name]
+CTemplate.public.addMethod("create", function(name, data) {
+    if (!vNetworkify.util.isString(name) || !vNetworkify.util.isString(data) || CTemplate.private.buffer[name]) return false
+    CTemplate.private.buffer[name] = CTemplate.public.createInstance(name, data)
+    return CTemplate.private.buffer[name]
 })
 
 // @Desc: Creates a fresh template from URL
-vNetworkify.util.template.addMethod("destroy", function(name) {
-    if (!vNetworkify.util.isString(name) || !vNetworkify.util.isObject(vNetworkify.util.template.buffer[name])) return false
-    return vNetworkify.util.template.buffer[name].destroy()
+CTemplate.public.addMethod("destroy", function(name) {
+    if (!vNetworkify.util.isString(name) || !CTemplate.private.buffer[name]) return false
+    return CTemplate.private.buffer[name].destroy()
 })
 
 
