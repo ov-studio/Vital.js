@@ -59,8 +59,8 @@ end
 
 CVCL.private.parseComment = (parser, buffer, rw) => {
     if (!parser.isType && (rw == CVCL.private.types.comment)) {
-        local line, indexLine = CVCL.private.fetchLine(string.sub(buffer, 0, parser.ref))
-        local rwLines = string.split(buffer, CVCL.private.types.newline)
+        const line, indexLine = CVCL.private.fetchLine(string.sub(buffer, 0, parser.ref))
+        const rwLines = string.split(buffer, CVCL.private.types.newline)
         parser.ref =  parser.ref - #indexLine + #rwLines[line] + 2
     }
     return true
