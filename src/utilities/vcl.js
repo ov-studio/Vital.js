@@ -54,7 +54,7 @@ CVCL.private.fetchLine = (rw, index) => {
     if (rw) {
         const rwLines = rw.substring(0, index).split(CVCL.private.types.newline)
         const rwLength = rwLines.length()
-        return [math.max(1, rwLength), rwLines[rwLength] || ""]
+        return [Math.max(1, rwLength), rwLines[rwLength] || ""]
     }
     return false
 }
