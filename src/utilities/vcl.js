@@ -46,10 +46,12 @@ CVCL.private.isVoid = (rw) => {
     return (rw.match("\W") && true) || false
 }
 
+// @Desc: Fetches rw buffer by index
 CVCL.private.fetch = (rw, index) => {
     return rw.substring(index, index)
 }
 
+// @Desc: Fetches rw buffer's line by index
 CVCL.private.fetchLine = (rw, index) => {
     if (rw) {
         const rwLines = rw.substring(0, index).split(CVCL.private.types.newline)
@@ -59,6 +61,7 @@ CVCL.private.fetchLine = (rw, index) => {
     return false
 }
 
+// @Desc: Parses comment
 CVCL.private.parseComment = (parser, buffer, rw) => {
     if (!parser.isType && (rw == CVCL.private.types.comment)) {
         const line = CVCL.private.fetchLine(buffer.substring(0, parser.ref))
