@@ -43,11 +43,11 @@ CVCL.private.types = {
 
 // @Desc: Verifies whether rw buffer is void
 CVCL.private.isVoid = (rw) => {
-    return (!vNetworkify.util.isString(rw) || !rw.match("\W") && true) || false
+    return (!rw || !rw.match("\W") && true) || false
 }
 
 CVCL.private.fetch = (rw, index) => {
-    return (vNetworkify.util.isString(rw) && rw.substring(rw, index, index)) || false
+    return (rw && rw.substring(rw, index, index)) || false
 }
 
 /*
@@ -60,8 +60,8 @@ end
 CVCL.private.parseComment = (parser, buffer, rw) => {
     if (!parser.isType && (rw == CVCL.private.types.comment)) {
         const line = CVCL.private.fetchLine(string.sub(buffer, 0, parser.ref))
-        const rwLines = string.split(buffer, CVCL.private.types.newline) // TODO: IMPLEMENT
-        parser.ref =  parser.ref - #line[1] + #rwLines[(line[0])] + 2
+        const rwLines = rw.split(buffer, CVCL.private.types.newline)
+        parser.ref =  parser.ref - line[1].length() + rwLines[(line[0])].length() + 2
     }
     return true
 }
