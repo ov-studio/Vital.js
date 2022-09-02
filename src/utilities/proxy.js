@@ -24,7 +24,7 @@ vNetworkify.util.proxy = CProxy.public
 // @Desc: Creates a fresh proxy of desired object/class
 CProxy.public.addMethod("create", function(data, exec) {
     if ((!vNetworkify.util.isObject(data) || !vNetworkify.util.isClass(data)) || !vNetworkify.util.isFunction(exec)) return false
-    return new CProxy(data, exec)
+    return CProxy.public.createInstance(data, exec)
 })
 
 // @Desc: Initializes a proxy instance
