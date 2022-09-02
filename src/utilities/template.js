@@ -24,14 +24,14 @@ CTemplate.private.buffer = {}
 /////////////////////
 
 // @Desc: Creates a fresh template from URL
-CTemplate.public.addMethod("create", function(name, data) {
+CTemplate.public.addMethod("create", (name, data) => {
     if (!vNetworkify.util.isString(name) || !vNetworkify.util.isString(data) || CTemplate.private.buffer[name]) return false
     CTemplate.private.buffer[name] = CTemplate.public.createInstance(name, data)
     return CTemplate.private.buffer[name]
 })
 
 // @Desc: Creates a fresh template from URL
-CTemplate.public.addMethod("destroy", function(name) {
+CTemplate.public.addMethod("destroy", (name) => {
     if (!vNetworkify.util.isString(name) || !CTemplate.private.buffer[name]) return false
     return CTemplate.private.buffer[name].destroy()
 })
@@ -42,7 +42,7 @@ CTemplate.public.addMethod("destroy", function(name) {
 ///////////////////////
 
 // @Desc: Instance constructor
-CTemplate.public.addMethod("constructor", function(self, data) {
+CTemplate.public.addMethod("constructor", (self, data) => {
     const private = CTemplate.instance.get(self)
     private.template = document.createElement("template")
     private.template.innerHTML = data
