@@ -32,8 +32,8 @@ CProxy.public.addMethod("create", function(data, exec) {
 // Instance Members //
 ///////////////////////
 
-// @Desc: Handles proxy initialization
-const onProxyInitialize = function(self, data) {
+// @Desc: Initializes a proxy instance
+CProxy.private.onInitialize = function(self, data) {
     const cProxy = Proxy.revocable(data, {
         set(data, property, value) {
             data[property] = value
@@ -43,7 +43,7 @@ const onProxyInitialize = function(self, data) {
         get(data, property) {
             const value = data[property]
             if (vNetworkify.utility.isObject(value)) {
-                if (!self.buffer.has(value)) self.buffer.set(value, onProxyInitialize(self, value, self.exec))
+                if (!self.buffer.has(value)) self.buffer.set(value, CProxy.private.onInitialize(self, value, self.exec))
                 return self.buffer.get(value)
             }
             return value
@@ -62,7 +62,7 @@ const onProxyInitialize = function(self, data) {
 CProxy.public.addMethod("constructor", function(self, data, exec) {
     self.buffer = new WeakMap(), self.revoke = []
     self.data = data, self.exec = exec
-    self.proxy = onProxyInitialize(self, self.data)
+    self.proxy = CProxy.private.onInitialize(self, self.data)
 }, "isInstance")
 
 // @Desc: Verifies instance's validity
