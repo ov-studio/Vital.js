@@ -92,6 +92,7 @@ CVCL.private.parseBoolean = (parser, buffer, rw) => {
 }
 
 /*
+// @Desc: Parses number
 function CVCL.private.parseNumber(parser, buffer, rw)
     if not parser.isType || (parser.isType == "number") then
         local isNumber = imports.tonumber(rw)
