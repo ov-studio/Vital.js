@@ -46,11 +46,11 @@ CVL.private.isVoid = (rw) => {
     return (!vNetworkify.util.isString(rw) || !rw.match("\W") && true) || false
 }
 
-/*
-function CVL.private.fetch(rw, index)
-    return string.sub(rw, index, index)
-end
+CVL.private.fetch = (rw, index) => {
+    return (vNetworkify.util.isString(rw) && rw.substring(rw, index, index)) || false
+}
 
+/*
 function CVL.private.fetchLine(rw, index)
     local rwLines = string.split(string.sub(rw, 0, index), CVL.private.types.newline)
     return math.max(1, #rwLines), rwLines[(#rwLines)] || ""
