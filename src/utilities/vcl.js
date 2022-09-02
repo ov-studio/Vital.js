@@ -82,11 +82,13 @@ CVCL.private.parseBoolean = (parser, buffer, rw) => {
                 }
             }
         }
-        if (!parser.isType && CVCL.private.types.bool[rw])
+        if (!parser.isType && CVCL.private.types.bool[rw]) {
             parser.isSkipAppend = true, parser.ref = parser.ref + rw.length() - 1, parser.isType = "bool", parser.value = rw
-        else if (parser.isType)
+        }
+        else if (parser.isType) {
             if (rw == CVCL.private.types.newline) parser.isSkipAppend = true, parser.isParsed = true
             else return false
+        }
     }
     return true
 }
@@ -100,11 +102,13 @@ CVCL.private.parseNumber = (parser, buffer, rw) => {
             if (isNegative || isNumber) parser.isType = "number", parser.isTypeNegative = (isNegative && parser.ref) || false
         }
         else {
-            if (rw == CVCL.private.types.decimal)
+            if (rw == CVCL.private.types.decimal) {
                 if (!parser.isTypeFloat) parser.isTypeFloat = true
                 else return false
-            else if (!parser.isTypeFloat && parser.isTypeNegative && ((CVCL.private.isVoid(parser.index) && (rw == CVCL.private.types.space)) || (rw == CVCL.private.types.init)))
+            }
+            else if (!parser.isTypeFloat && parser.isTypeNegative && ((CVCL.private.isVoid(parser.index) && (rw == CVCL.private.types.space)) || (rw == CVCL.private.types.init))) {
                 parser.ref, parser.index, parser.isType, parser.isTypeFloat, parser.isTypeNegative = parser.isTypeNegative - 1, "", "object", false, false
+            }
             else if (rw == CVCL.private.types.newline) parser.isParsed = true
             else if (!isNumber) return false
         }
