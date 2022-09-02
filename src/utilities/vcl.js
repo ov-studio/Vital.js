@@ -50,16 +50,14 @@ CVCL.private.fetch = (rw, index) => {
     return (rw && rw.substring(rw, index, index)) || false
 }
 
-/*
-function CVCL.private.fetchLine(rw, index)
-    local rwLines = string.split(string.sub(rw, 0, index), CVCL.private.types.newline)
+CVCL.private.fetchLine = (rw, index) => {
+    const rwLines = rw.substring(0, index).split(CVCL.private.types.newline)
     return math.max(1, #rwLines), rwLines[(#rwLines)] || ""
-end
-*/
+}
 
 CVCL.private.parseComment = (parser, buffer, rw) => {
     if (!parser.isType && (rw == CVCL.private.types.comment)) {
-        const line = CVCL.private.fetchLine(string.sub(buffer, 0, parser.ref))
+        const line = CVCL.private.fetchLine(buffer.substring(0, parser.ref))
         const rwLines = rw.split(buffer, CVCL.private.types.newline)
         parser.ref =  parser.ref - line[1].length() + rwLines[(line[0])].length() + 2
     }
