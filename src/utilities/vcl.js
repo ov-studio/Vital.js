@@ -55,16 +55,18 @@ function CVCL.private.fetchLine(rw, index)
     local rwLines = string.split(string.sub(rw, 0, index), CVCL.private.types.newline)
     return math.max(1, #rwLines), rwLines[(#rwLines)] || ""
 end
+*/
 
-function CVCL.private.parseComment(parser, buffer, rw)
-    if not parser.isType && (rw == CVCL.private.types.comment) then
+CVCL.private.parseComment = (parser, buffer, rw) => {
+    if (!parser.isType && (rw == CVCL.private.types.comment)) {
         local line, indexLine = CVCL.private.fetchLine(string.sub(buffer, 0, parser.ref))
-        local rwLines = string.split(string.sub(buffer, 0, #buffer), CVCL.private.types.newline)
+        local rwLines = string.split(buffer, CVCL.private.types.newline)
         parser.ref =  parser.ref - #indexLine + #rwLines[line] + 2
-    end
+    }
     return true
-end
+}
 
+/*
 function CVCL.private.parseBoolean(parser, buffer, rw)
     if not parser.isType || (parser.isType == "bool") then
         if not parser.isType then
