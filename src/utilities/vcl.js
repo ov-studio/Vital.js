@@ -91,27 +91,30 @@ CVCL.private.parseBoolean = (parser, buffer, rw) => {
     return true
 }
 
-/*
 // @Desc: Parses number
-function CVCL.private.parseNumber(parser, buffer, rw)
-    if not parser.isType || (parser.isType == "number") then
-        local isNumber = imports.tonumber(rw)
-        if not parser.isType then
-            local isNegative = rw == CVCL.private.types.negative
-            if isNegative || isNumber then parser.isType, parser.isTypeNegative = "number", (isNegative && parser.ref) || false end
-        else
-            if rw == CVCL.private.types.decimal then
-                if not parser.isTypeFloat then parser.isTypeFloat = true
-                else return false end
-            elseif not parser.isTypeFloat && parser.isTypeNegative && ((CVCL.private.isVoid(parser.index) && (rw == CVCL.private.types.space)) || (rw == CVCL.private.types.init)) then
+CVCL.private.parseNumber = (parser, buffer, rw) => {
+    if (!parser.isType || (parser.isType == "number")) {
+        const isNumber = imports.tonumber(rw)
+        if (!parser.isType) {
+            const isNegative = rw == CVCL.private.types.negative
+            if (isNegative || isNumber) parser.isType = "number", parser.isTypeNegative = (isNegative && parser.ref) || false
+        }
+        else {
+            if (rw == CVCL.private.types.decimal) {
+                if (!parser.isTypeFloat) parser.isTypeFloat = true
+                else return false
+            }
+            else if (!parser.isTypeFloat && parser.isTypeNegative && ((CVCL.private.isVoid(parser.index) && (rw == CVCL.private.types.space)) || (rw == CVCL.private.types.init))) {
                 parser.ref, parser.index, parser.isType, parser.isTypeFloat, parser.isTypeNegative = parser.isTypeNegative - 1, "", "object", false, false
-            elseif rw == CVCL.private.types.newline then parser.isParsed = true
-            elseif not isNumber then return false end
-        end
-    end
+            }
+            else if (rw == CVCL.private.types.newline) parser.isParsed = true
+            else if (!isNumber) return false
+        }
+    }
     return true
-end
+}
 
+/*
 function CVCL.private.parseString(parser, buffer, rw)
     if not parser.isType || (parser.isType == "string") then
         if (not parser.isTypeChar && CVCL.private.types.string[rw]) || parser.isTypeChar then
