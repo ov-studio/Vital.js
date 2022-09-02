@@ -71,27 +71,31 @@ CVCL.private.parseComment = (parser, buffer, rw) => {
     return true
 }
 
-/*
-function CVCL.private.parseBoolean(parser, buffer, rw)
-    if not parser.isType || (parser.isType == "bool") then
-        if not parser.isType then
+CVCL.private.parseBoolean = (parser, buffer, rw) => {
+    if (!parser.isType || (parser.isType == "bool")) {
+        if (!parser.isType) {
+            /*
             for i, j in imports.pairs(CVCL.private.types.bool) do
                 if string.sub(buffer, parser.ref, parser.ref + #i - 1) == i then
                     rw = i
                     break
                 end
             end
-        end
+            */
+        }
+        /*
         if not parser.isType && CVCL.private.types.bool[rw] then
             parser.isSkipAppend, parser.ref, parser.isType, parser.value = true, parser.ref + #rw - 1, "bool", rw
         elseif parser.isType then
             if rw == CVCL.private.types.newline then parser.isSkipAppend, parser.isParsed = true, true
             else return false end
         end
-    end
+        */
+    }
     return true
-end
+}
 
+/*
 function CVCL.private.parseNumber(parser, buffer, rw)
     if not parser.isType || (parser.isType == "number") then
         local isNumber = imports.tonumber(rw)
