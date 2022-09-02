@@ -13,7 +13,7 @@
 // Class: Template //
 //////////////////////
 
-const CTemplate = vNetworkify.util.createClass({})
+const CTemplate = vNetworkify.util.createClass()
 vNetworkify.util.template = CTemplate.public
 CTemplate.private.buffer = {}
 

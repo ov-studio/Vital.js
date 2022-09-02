@@ -13,7 +13,7 @@
 // Class: Proxy //
 ///////////////////
 
-const CProxy = vNetworkify.util.createClass({})
+const CProxy = vNetworkify.util.createClass()
 vNetworkify.util.proxy = CProxy.public
 
 
