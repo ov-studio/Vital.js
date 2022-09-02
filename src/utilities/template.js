@@ -18,7 +18,6 @@ vNetworkify.util.template = CTemplate.public
 CTemplate.private.buffer = {}
 
 
-
 /////////////////////
 // Static Members //
 /////////////////////
