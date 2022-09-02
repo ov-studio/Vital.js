@@ -118,13 +118,13 @@ CVCL.private.parseNumber = (parser, buffer, rw) => {
 CVCL.private.parseString = (parser, buffer, rw) => {
     if (!parser.isType || (parser.isType == "string")) {
         if ((!parser.isTypeChar && CVCL.private.types.string[rw]) || parser.isTypeChar) {
-            if (!parser.isType) parser.isSkipAppend, parser.isType, parser.isTypeChar = true, "string", rw
+            if (!parser.isType) parser.isSkipAppend = true, parser.isType = "string", parser.isTypeChar = rw
             else if (rw == parser.isTypeChar) {
-                if (!parser.isTypeParsed) then parser.isSkipAppend, parser.isTypeParsed = true, true
+                if (!parser.isTypeParsed) parser.isSkipAppend = true, parser.isTypeParsed = true
                 else return false
             }
             else if (parser.isTypeParsed) {
-                if (rw == CVCL.private.types.newline) then parser.isParsed = true
+                if (rw == CVCL.private.types.newline) parser.isParsed = true
                 else return false
             }
         }
