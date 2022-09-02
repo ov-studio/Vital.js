@@ -135,6 +135,7 @@ CVCL.private.parseString = (parser, buffer, rw) => {
 }
 
 /*
+// @Desc: Parses object
 function CVCL.private.parseObject(parser, buffer, rw, isChild)
     if parser.isType == "object" then
         if CVCL.private.isVoid(parser.index) && (rw == CVCL.private.types.list) then parser.isTypeID = parser.ref
