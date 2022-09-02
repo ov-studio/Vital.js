@@ -27,11 +27,6 @@ CProxy.public.addMethod("create", function(data, exec) {
     return new CProxy(data, exec)
 })
 
-
-///////////////////////
-// Instance Members //
-///////////////////////
-
 // @Desc: Initializes a proxy instance
 CProxy.private.onInitialize = function(self, data) {
     const cProxy = Proxy.revocable(data, {
@@ -57,6 +52,11 @@ CProxy.private.onInitialize = function(self, data) {
     self.revoke.push(cProxy.revoke)
     return cProxy.proxy
 }
+
+
+///////////////////////
+// Instance Members //
+///////////////////////
 
 // @Desc: Instance constructor
 CProxy.public.addMethod("constructor", function(self, data, exec) {
