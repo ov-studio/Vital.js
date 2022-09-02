@@ -24,8 +24,8 @@ vNetworkify.utility.template = vNetworkify.utility.createClass({
 
 // @Desc: Creates a fresh template from URL
 vNetworkify.utility.template.addMethod("create", function(name, data) {
-    if (!vNetworkify.utility.isString(name) || !vNetworkify.utility.isString(data)) return false
-    vNetworkify.utility.template.buffer[name] = vNetworkify.utility.template.buffer[name] || new vNetworkify.utility.template(name, data)
+    if (!vNetworkify.utility.isString(name) || !vNetworkify.utility.isString(data) || vNetworkify.utility.template.buffer[name]) return false
+    vNetworkify.utility.template.buffer[name] = new vNetworkify.utility.template(name, data)
     return vNetworkify.utility.template.buffer[name]
 })
 
@@ -45,6 +45,11 @@ vNetworkify.utility.proxy.addMethod("constructor", function(self, data) {
     self.template = document.createElement("template")
     self.template.innerHTML = data
 }, "isInstance")
+
+
+vNetworkify.utility.proxy.addMethod("destroy", function(self) {
+    // TODO: WIP DESTROY IT..
+})
 
 
 // TODO: WIP...
