@@ -47,7 +47,7 @@ CVCL.private.isVoid = (rw) => {
 }
 
 CVCL.private.fetch = (rw, index) => {
-    return (rw && rw.substring(rw, index, index)) || false
+    return (rw && rw.substring(index, index)) || false
 }
 
 CVCL.private.fetchLine = (rw, index) => {
