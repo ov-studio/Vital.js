@@ -14,7 +14,7 @@
 //////////////////////
 
 const CTemplate = vNetworkify.util.createClass({})
-vNetworkify.util.template = CProxy.public
+vNetworkify.util.template = CTemplate.public
 CTemplate.private.buffer = {}
 
 
@@ -42,14 +42,19 @@ CTemplate.public.addMethod("destroy", function(name) {
 ///////////////////////
 
 // @Desc: Instance constructor
-vNetworkify.util.proxy.addMethod("constructor", function(self, data) {
-    self.template = document.createElement("template")
-    self.template.innerHTML = data
-}, "isInstance")
+CTemplate.public.addMethod("constructor", function(self, data) {
+    const private = CTemplate.instance.get(self)
+    private.template = document.createElement("template")
+    private.template.innerHTML = data
+})
 
 
-vNetworkify.util.proxy.addMethod("destroy", function(self) {
+// @Desc: Destroys the instance
+CTemplate.public.addInstanceMethod("destroy", (self) => {
+    const private = CTemplate.instance.get(self)
     // TODO: WIP DESTROY IT..
+    self.destroyInstance()
+    return true
 })
 
 
