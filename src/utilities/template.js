@@ -23,16 +23,16 @@ vNetworkify.utility.template = vNetworkify.utility.createClass({
 /////////////////////
 
 // @Desc: Creates a fresh template from URL
-vNetworkify.utility.template.addMethod("create", function(url) {
-    if (!vNetworkify.utility.isString(url)) return false
-    vNetworkify.utility.template.buffer[url] = vNetworkify.utility.template.buffer[url] || new vNetworkify.utility.template(url)
-    return vNetworkify.utility.template.buffer[url]
+vNetworkify.utility.template.addMethod("create", function(name) {
+    if (!vNetworkify.utility.isString(name)) return false
+    vNetworkify.utility.template.buffer[name] = vNetworkify.utility.template.buffer[name] || new vNetworkify.utility.template(name)
+    return vNetworkify.utility.template.buffer[name]
 })
 
 // @Desc: Creates a fresh template from URL
-vNetworkify.utility.template.addMethod("destroy", function(url) {
-    if (!vNetworkify.utility.isString(url) || !vNetworkify.utility.isObject(vNetworkify.utility.template.buffer[url])) return false
-    return vNetworkify.utility.template.buffer[url].destroy()
+vNetworkify.utility.template.addMethod("destroy", function(name) {
+    if (!vNetworkify.utility.isString(name) || !vNetworkify.utility.isObject(vNetworkify.utility.template.buffer[name])) return false
+    return vNetworkify.utility.template.buffer[name].destroy()
 })
 
 
@@ -41,9 +41,9 @@ vNetworkify.utility.template.addMethod("destroy", function(url) {
 ///////////////////////
 
 // @Desc: Instance constructor
-vNetworkify.utility.proxy.addMethod("constructor", function(self, url) {
+vNetworkify.utility.proxy.addMethod("constructor", function(self, name) {
     self.template = document.createElement("template")
-    self.template.innerHTML = url
+    self.template.innerHTML = name
 }, "isInstance")
 
 
