@@ -43,7 +43,7 @@ CVCL.private.types = {
 
 // @Desc: Verifies whether rw is void
 CVCL.private.isVoid = (rw) => {
-    return (rw.match("\W") && true) || false
+    return (rw.match("\w") && true) || false
 }
 
 // @Desc: Fetches rw by index
