@@ -114,23 +114,25 @@ CVCL.private.parseNumber = (parser, buffer, rw) => {
     return true
 }
 
-/*
-function CVCL.private.parseString(parser, buffer, rw)
-    if not parser.isType || (parser.isType == "string") then
-        if (not parser.isTypeChar && CVCL.private.types.string[rw]) || parser.isTypeChar then
-            if not parser.isType then parser.isSkipAppend, parser.isType, parser.isTypeChar = true, "string", rw
-            elseif rw == parser.isTypeChar then
-                if not parser.isTypeParsed then parser.isSkipAppend, parser.isTypeParsed = true, true
-                else return false end
-            elseif parser.isTypeParsed then
-                if rw == CVCL.private.types.newline then parser.isParsed = true
-                else return false end
-            end
-        end
-    end
+// @Desc: Parses string
+CVCL.private.parseString = (parser, buffer, rw) => {
+    if (!parser.isType || (parser.isType == "string")) {
+        if ((!parser.isTypeChar && CVCL.private.types.string[rw]) || parser.isTypeChar) {
+            if (!parser.isType) parser.isSkipAppend, parser.isType, parser.isTypeChar = true, "string", rw
+            else if (rw == parser.isTypeChar) {
+                if (!parser.isTypeParsed) then parser.isSkipAppend, parser.isTypeParsed = true, true
+                else return false
+            }
+            else if (parser.isTypeParsed) {
+                if (rw == CVCL.private.types.newline) then parser.isParsed = true
+                else return false
+            }
+        }
+    }
     return true
-end
+}
 
+/*
 function CVCL.private.parseObject(parser, buffer, rw, isChild)
     if parser.isType == "object" then
         if CVCL.private.isVoid(parser.index) && (rw == CVCL.private.types.list) then parser.isTypeID = parser.ref
