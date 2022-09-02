@@ -63,11 +63,6 @@ CProxy.public.addMethod("constructor", function(self, data, exec) {
     self.buffer = new WeakMap(), self.revoke = []
     self.data = data, self.exec = exec
     self.proxy = CProxy.private.onInitialize(self, self.data)
-}, "isInstance")
-
-// @Desc: Verifies instance's validity
-CProxy.public.addInstanceMethod("isInstance", function(self) {
-    return (!self.isUnloaded && true) || false
 })
 
 // @Desc: Destroys the instance
