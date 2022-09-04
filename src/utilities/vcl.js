@@ -226,7 +226,7 @@ CVCL.private.decode = (buffer, ref, padding, isChild) => {
         buffer = string.detab(buffer).gsub(CVCL.private.types.carriageline, "")
         buffer = (!isChild && (CVCL.private.fetch(buffer, buffer.length) != CVCL.private.types.newline) && (buffer + CVCL.private.types.newline)) || buffer   
     }
-    while(parser.ref <= buffer.length) do {
+    while(parser.ref <= buffer.length) {
         CVCL.private.parseComment(parser, buffer, CVCL.private.fetch(buffer, parser.ref))
         if (isChild) {
             parser.isSkipAppend = false
