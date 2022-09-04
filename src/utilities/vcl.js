@@ -43,7 +43,7 @@ CVCL.private.types = {
 
 // @Desc: Verifies whether rw is void
 CVCL.private.isVoid = (rw) => {
-    return (rw.match("\w") && true) || false
+    return (rw.match(/[\w]/g) && true) || false
 }
 
 // @Desc: Fetches rw by index
@@ -245,6 +245,8 @@ CVCL.private.decode = (buffer, ref, padding, isChild) => {
 CVCL.public.decode = (buffer) => {return CVCL.private.decode(buffer)}
 
 
+/*
 console.log(CVCL.public.decode(`
 test: "xD"
 `))
+*/
