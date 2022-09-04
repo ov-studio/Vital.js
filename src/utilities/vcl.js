@@ -140,7 +140,7 @@ CVCL.private.parseObject = (parser, buffer, rw, isChild) => {
         if (CVCL.private.isVoid(parser.index) && (rw == CVCL.private.types.list)) parser.isTypeID = parser.ref
         else if (!CVCL.private.isVoid(rw)) parser.index = parser.index + rw
         else {
-            if (parser.isTypeID && CVCL.private.isVoid(parser.index) && (rw == CVCL.private.types.init)) parser.index = imports.tostring(#parser.pointer + 1)
+            if (parser.isTypeID && CVCL.private.isVoid(parser.index) && (rw == CVCL.private.types.init)) parser.index = String(#parser.pointer + 1)
             if (!CVCL.private.isVoid(parser.index)) {
                 if (parser.isTypeID && (rw == CVCL.private.types.newline)) parser.pointer[(#parser.pointer + 1)] = parser.index
                 else if (rw == CVCL.private.types.init) {
@@ -194,9 +194,9 @@ function CVCL.private.encode(buffer, padding)
         if imports.type(j) == "table" then
             table.insert(((imports.type(i) == "number") && indexes.numeric) || indexes.index, i)
         else
-            i = ((imports.type(i) == "number") && "- "..imports.tostring(i)) || i
+            i = ((imports.type(i) == "number") && "- "..String(i)) || i
             if imports.type(j) == "string" then j = "\""..j.."\"" end
-            result = result..CVCL.private.types.newline..padding..i..CVCL.private.types.init..CVCL.private.types.space..imports.tostring(j)
+            result = result..CVCL.private.types.newline..padding..i..CVCL.private.types.init..CVCL.private.types.space..String(j)
         end
     end
     table.sort(indexes.numeric, function(a, b) return a < b end)
