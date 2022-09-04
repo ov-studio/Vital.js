@@ -176,8 +176,7 @@ CVCL.private.parseReturn = (parser, buffer) => {
     if (!parser.isParsed) {
         if (!parser.isChildErrored || (parser.isChildErrored == 0)) {
             parser.isErrored = string.format(parser.isErrored, CVCL.private.fetchLine(buffer, parser.ref), (parser.isType && "Malformed " + parser.isType) || "Invalid declaration")
-            // TODO: REPLACE LATER
-            console.log(parser.isErrored)
+            vNetworkify.util.print(parser.isErrored)
         }
         return [false, false, true]
     }
