@@ -43,6 +43,7 @@ CVCL.private.types = {
 
 // @Desc: Verifies whether rw is void
 CVCL.private.isVoid = (rw) => {
+    rw = ((typeof(rw) == "number") && String(rw)) || rw
     return (!rw.match(/[\w]/g) && true) || false
 }
 
@@ -251,6 +252,7 @@ var test = `
 A: true
 B: "X"
 -1: "test"
+-2: "test"
 `
 //console.log(test)
 const decodedText = CVCL.public.decode(test)
