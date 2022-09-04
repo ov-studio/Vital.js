@@ -137,9 +137,7 @@ CVCL.private.parseString = (parser, buffer, rw) => {
 CVCL.private.parseObject = (parser, buffer, rw, isChild) => {
     if (parser.isType == "object") {
         if (CVCL.private.isVoid(parser.index) && (rw == CVCL.private.types.list)) parser.isTypeID = parser.ref
-        else if (!CVCL.private.isVoid(rw)) {
-            parser.index = parser.index + rw
-        }
+        else if (!CVCL.private.isVoid(rw)) parser.index = parser.index + rw
         else {
             if (parser.isTypeID && CVCL.private.isVoid(parser.index) && (rw == CVCL.private.types.init)) parser.index = String(parser.pointer.length + 1)
             if (!CVCL.private.isVoid(parser.index)) {
