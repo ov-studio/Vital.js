@@ -250,6 +250,9 @@ CVCL.public.decode = (buffer) => {
 var test = `
 A: true
 B: "X"
+-1: "test"
 `
 //console.log(test)
-console.log(CVCL.public.decode(test))
+const decodedText = CVCL.public.decode(test)
+console.log(decodedText)
+console.log(decodedText[1])
