@@ -63,9 +63,9 @@ CVCL.private.fetchLine = (rw, index) => {
 // @Desc: Parses comment
 CVCL.private.parseComment = (parser, buffer, rw) => {
     if (!parser.isType && (rw == CVCL.private.types.comment)) {
-        const [line, indexLine] = CVCL.private.fetchLine(buffer.substring(0, parser.ref))
+        const [line, lineText] = CVCL.private.fetchLine(buffer.substring(0, parser.ref))
         const rwLines = rw.split(buffer, CVCL.private.types.newline)
-        parser.ref = parser.ref - indexLine.length + rwLines[line].length + 2
+        parser.ref = parser.ref - lineText.length + rwLines[line].length + 2
     }
     return true
 }
@@ -143,9 +143,9 @@ CVCL.private.parseObject = (parser, buffer, rw, isChild) => {
             if (!CVCL.private.isVoid(parser.index)) {
                 if (parser.isTypeID && (rw == CVCL.private.types.newline)) parser.pointer[(parser.pointer.length + 1)] = parser.index
                 else if (rw == CVCL.private.types.init) {
-                    const [line, indexLine] = CVCL.private.fetchLine(string.sub(buffer, 0, parser.ref))
+                    const [line, lineText] = CVCL.private.fetchLine(string.sub(buffer, 0, parser.ref))
                     const indexTypePadding = (parser.isTypeID && (parser.ref - parser.isTypeID - 1)) || 0
-                    const indexPadding = indexLine.length - parser.index.length - indexTypePadding - 1
+                    const indexPadding = lineText.length - parser.index.length - indexTypePadding - 1
                     if (isChild) {
                         parser.padding = parser.padding || indexPadding - 1
                         if (indexPadding <= parser.padding) {
