@@ -221,11 +221,12 @@ CVCL.private.decode = (buffer, ref, padding, isChild) => {
         index: "", pointer: {}, value: "",
         isErrored: "Failed to decode vcl. [Line: %s] [Reason: %s]"
     }
+    if (!isChild) {
+        // TODO: CONVERT...
+        buffer = string.detab(buffer).gsub(CVCL.private.types.carriageline, "")
+        buffer = (!isChild && (CVCL.private.fetch(buffer, buffer.length) != CVCL.private.types.newline) && (buffer + CVCL.private.types.newline)) || buffer   
+    }
     /*
-    if not isChild then
-        buffer = string.gsub(string.detab(buffer), CVCL.private.types.carriageline, "")
-        buffer = (not isChild && (CVCL.private.fetch(buffer, #buffer) != CVCL.private.types.newline) && buffer..CVCL.private.types.newline) || buffer
-    end
     while(parser.ref <= #buffer) do
         CVCL.private.parseComment(parser, buffer, CVCL.private.fetch(buffer, parser.ref))
         if isChild then
