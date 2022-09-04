@@ -55,7 +55,7 @@ CVCL.private.fetch = (rw, index) => {
 CVCL.private.fetchLine = (rw, index) => {
     if (rw) {
         const rwLines = rw.substring(0, index).split(CVCL.private.types.newline)
-        return [Math.max(1, rwLines.length), rwLines[(rwLines.length)] || ""]
+        return [Math.max(1, rwLines.length), rwLines[(rwLines.length - 1)] || ""]
     }
     return false
 }
@@ -64,8 +64,8 @@ CVCL.private.fetchLine = (rw, index) => {
 CVCL.private.parseComment = (parser, buffer, rw) => {
     if (!parser.isType && (rw == CVCL.private.types.comment)) {
         const [line, lineText] = CVCL.private.fetchLine(buffer.substring(0, parser.ref))
-        const rwLines = rw.split(buffer, CVCL.private.types.newline)
-        parser.ref = parser.ref - lineText.length + rwLines[line].length + 2
+        const rwLines = buffer.split(CVCL.private.types.newline)
+        parser.ref = parser.ref - lineText.length + rwLines[(line - 1)].length + 2
     }
     return true
 }
@@ -250,7 +250,10 @@ CVCL.public.decode = (buffer) => {
 
 
 var test = `
-A: "B"
+A:
+    #heyy
+    B: -111.444
+    C: "value B"
 `
 //console.log(test)
 console.log(CVCL.public.decode(test))
