@@ -106,7 +106,7 @@ CVCL.private.parseNumber = (parser, buffer, rw) => {
                 else return false
             }
             else if (!parser.isTypeFloat && parser.isTypeNegative && ((CVCL.private.isVoid(parser.index) && (rw == CVCL.private.types.space)) || (rw == CVCL.private.types.init))) {
-                parser.ref, parser.index, parser.isType, parser.isTypeFloat, parser.isTypeNegative = parser.isTypeNegative - 1, "", "object", false, false
+                parser.ref = parser.isTypeNegative - 1, parser.index = "", parser.isType = "object", parser.isTypeFloat = false, parser.isTypeNegative = false
             }
             else if (rw == CVCL.private.types.newline) parser.isParsed = true
             else if (!isNumber) return false
@@ -251,6 +251,7 @@ CVCL.public.decode = (buffer) => {
 
 var test = `
 A: true
+B: "X"
 `
 //console.log(test)
 console.log(CVCL.public.decode(test))
