@@ -55,7 +55,7 @@ CVCL.private.fetch = (rw, index) => {
 CVCL.private.fetchLine = (rw, index) => {
     if (rw) {
         const rwLines = rw.substring(0, index).split(CVCL.private.types.newline)
-        const rwLength = rwLines.length()
+        const rwLength = rwLines.length
         return [Math.max(1, rwLength), rwLines[rwLength] || ""]
     }
     return false
@@ -66,7 +66,7 @@ CVCL.private.parseComment = (parser, buffer, rw) => {
     if (!parser.isType && (rw == CVCL.private.types.comment)) {
         const line = CVCL.private.fetchLine(buffer.substring(0, parser.ref))
         const rwLines = rw.split(buffer, CVCL.private.types.newline)
-        parser.ref = parser.ref - line[1].length() + rwLines[(line[0])].length() + 2
+        parser.ref = parser.ref - line[1].length + rwLines[(line[0])].length + 2
     }
     return true
 }
@@ -76,14 +76,14 @@ CVCL.private.parseBoolean = (parser, buffer, rw) => {
     if (!parser.isType || (parser.isType == "bool")) {
         if (!parser.isType) {
             for (const i in CVCL.private.types.bool) {
-                if (buffer.sub(parser.ref, parser.ref + i.length() - 1) == i) {
+                if (buffer.sub(parser.ref, parser.ref + i.length - 1) == i) {
                     rw = i
                     break
                 }
             }
         }
         if (!parser.isType && CVCL.private.types.bool[rw]) {
-            parser.isSkipAppend = true, parser.ref = parser.ref + rw.length() - 1, parser.isType = "bool", parser.value = rw
+            parser.isSkipAppend = true, parser.ref = parser.ref + rw.length - 1, parser.isType = "bool", parser.value = rw
         }
         else if (parser.isType) {
             if (rw == CVCL.private.types.newline) parser.isSkipAppend = true, parser.isParsed = true
@@ -145,9 +145,9 @@ CVCL.private.parseObject = (parser, buffer, rw, isChild) => {
                 if (parser.isTypeID && (rw == CVCL.private.types.newline)) parser.pointer[(#parser.pointer + 1)] = parser.index
                 else if (rw == CVCL.private.types.init) {
                     const line = CVCL.private.fetchLine(string.sub(buffer, 0, parser.ref))
-                    const indexLength = parser.index.length()
+                    const indexLength = parser.index.length
                     const indexTypePadding = (parser.isTypeID && (parser.ref - parser.isTypeID - 1)) || 0
-                    const indexPadding = line[1].length() - indexLength - indexTypePadding - 1
+                    const indexPadding = line[1].length - indexLength - indexTypePadding - 1
                     if (isChild) {
                         parser.padding = parser.padding || indexPadding - 1
                         if (indexPadding <= parser.padding) {
