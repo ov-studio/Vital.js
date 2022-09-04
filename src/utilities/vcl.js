@@ -65,7 +65,7 @@ CVCL.private.parseComment = (parser, buffer, rw) => {
     if (!parser.isType && (rw == CVCL.private.types.comment)) {
         const [line, lineText] = CVCL.private.fetchLine(buffer.substring(0, parser.ref))
         const rwLines = buffer.split(CVCL.private.types.newline)
-        parser.ref = parser.ref - lineText.length + rwLines[(line - 1)].length + 2
+        parser.ref = parser.ref - lineText.length + rwLines[(line - 1)].length
     }
     return true
 }
@@ -75,7 +75,7 @@ CVCL.private.parseBoolean = (parser, buffer, rw) => {
     if (!parser.isType || (parser.isType == "bool")) {
         if (!parser.isType) {
             for (const i in CVCL.private.types.bool) {
-                if (buffer.sub(parser.ref, parser.ref + i.length - 1) == i) {
+                if (buffer.substring(parser.ref, parser.ref + i.length) == i) {
                     rw = i
                     break
                 }
@@ -250,10 +250,7 @@ CVCL.public.decode = (buffer) => {
 
 
 var test = `
-A:
-    #heyy
-    B: -111.444
-    C: "value B"
+A: true
 `
 //console.log(test)
 console.log(CVCL.public.decode(test))
