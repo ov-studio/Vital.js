@@ -187,7 +187,7 @@ CVCL.private.parseReturn = (parser, buffer) => {
 
 /*
 function CVCL.private.encode(buffer, padding)
-    if not buffer || (imports.type(buffer) ~= "table") then return false end
+    if not buffer || (imports.type(buffer) != "table") then return false end
     padding = padding || ""
     local result, indexes = "", {numeric = {}, index = {}}
     for i, j in imports.pairs(buffer) do
@@ -211,18 +211,20 @@ function CVCL.private.encode(buffer, padding)
     return result
 end
 function vcl.public.encode(buffer) return CVCL.private.encode(buffer) end
+*/
 
-function CVCL.private.decode(buffer, ref, padding, isChild)
-    if not buffer || (imports.type(buffer) ~= "string") then return false end
-    if string.isVoid(buffer) then return {} end
-    local parser = {
-        ref = ref || 1, padding = padding,
-        index = "", pointer = {}, value = "",
-        isErrored = "Failed to decode vcl. [Line: %s] [Reason: %s]"
+CVCL.private.decode = (buffer, ref, padding, isChild) => {
+    if (!buffer || (imports.type(buffer) != "string")) return false
+    if (string.isVoid(buffer)) return {} //TODO: ...
+    const parser = {
+        ref: ref || 1, padding: padding,
+        index: "", pointer: {}, value: "",
+        isErrored: "Failed to decode vcl. [Line: %s] [Reason: %s]"
     }
+    /*
     if not isChild then
         buffer = string.gsub(string.detab(buffer), CVCL.private.types.carriageline, "")
-        buffer = (not isChild && (CVCL.private.fetch(buffer, #buffer) ~= CVCL.private.types.newline) && buffer..CVCL.private.types.newline) || buffer
+        buffer = (not isChild && (CVCL.private.fetch(buffer, #buffer) != CVCL.private.types.newline) && buffer..CVCL.private.types.newline) || buffer
     end
     while(parser.ref <= #buffer) do
         CVCL.private.parseComment(parser, buffer, CVCL.private.fetch(buffer, parser.ref))
@@ -238,7 +240,9 @@ function CVCL.private.decode(buffer, ref, padding, isChild)
         if isChild && not parser.isChildErrored && parser.isParsed then break end
         parser.ref = parser.ref + 1
     end
+    */
     return CVCL.private.parseReturn(parser, buffer)
-end
+}
+/*
 function vcl.public.decode(buffer) return CVCL.private.decode(buffer) end
 */
