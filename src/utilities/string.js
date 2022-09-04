@@ -31,7 +31,7 @@ CString.public.isVoid = (baseString) => {
 
 CString.public.detab = (baseString) => {
     if (!baseString || (typeof(baseString) != "string")) return false
-    return baseString.replace(/[\t"]/g, "    ")
+    return baseString.replace(/[\t]/g, "    ")
 }
 
-console.log(CString.public.detab(`A\tB`))
+//console.log(CString.public.detab(`A\tB`))

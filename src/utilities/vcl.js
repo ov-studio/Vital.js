@@ -43,7 +43,7 @@ CVCL.private.types = {
 
 // @Desc: Verifies whether rw is void
 CVCL.private.isVoid = (rw) => {
-    return (rw.match(/[\w]/g) && true) || false
+    return (!rw.match(/[\w]/g) && true) || false
 }
 
 // @Desc: Fetches rw by index
@@ -137,7 +137,9 @@ CVCL.private.parseString = (parser, buffer, rw) => {
 CVCL.private.parseObject = (parser, buffer, rw, isChild) => {
     if (parser.isType == "object") {
         if (CVCL.private.isVoid(parser.index) && (rw == CVCL.private.types.list)) parser.isTypeID = parser.ref
-        else if (!CVCL.private.isVoid(rw)) parser.index = parser.index + rw
+        else if (!CVCL.private.isVoid(rw)) {
+            parser.index = parser.index + rw
+        }
         else {
             if (parser.isTypeID && CVCL.private.isVoid(parser.index) && (rw == CVCL.private.types.init)) parser.index = String(parser.pointer.length + 1)
             if (!CVCL.private.isVoid(parser.index)) {
@@ -222,7 +224,6 @@ CVCL.private.decode = (buffer, ref, padding, isChild) => {
         isErrored: "Failed to decode vcl. [Line: %s] [Reason: %s]"
     }
     if (!isChild) {
-        // TODO: CONVERT...
         buffer = vNetworkify.util.string.detab(buffer).replace(CVCL.private.types.carriageline, "")
         buffer = (!isChild && (CVCL.private.fetch(buffer, buffer.length) != CVCL.private.types.newline) && (buffer + CVCL.private.types.newline)) || buffer   
     }
@@ -242,11 +243,14 @@ CVCL.private.decode = (buffer, ref, padding, isChild) => {
     }
     return CVCL.private.parseReturn(parser, buffer)
 }
-CVCL.public.decode = (buffer) => {return CVCL.private.decode(buffer)}
+CVCL.public.decode = (buffer) => {
+    const result = CVCL.private.decode(buffer)
+    return result[0]
+}
 
 
-/*
-console.log(CVCL.public.decode(`
-test: "xD"
-`))
-*/
+var test = `
+A: "B"
+`
+//console.log(test)
+console.log(CVCL.public.decode(test))
