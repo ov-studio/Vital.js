@@ -214,7 +214,7 @@ CVCL.public.encode = (buffer) => {return CVCL.private.encode(buffer)}
 */
 
 CVCL.private.decode = (buffer, ref, padding, isChild) => {
-    if (!buffer || (imports.type(buffer) != "string")) return false
+    if (!buffer || (typeof(buffer) != "string")) return false
     if (string.isVoid(buffer)) return {} //TODO: ...
     const parser = {
         ref: ref || 1, padding: padding,
@@ -243,3 +243,8 @@ CVCL.private.decode = (buffer, ref, padding, isChild) => {
     return CVCL.private.parseReturn(parser, buffer)
 }
 CVCL.public.decode = (buffer) => {return CVCL.private.decode(buffer)}
+
+
+console.log(CVCL.public.decode(`
+test: "xD"
+`))
