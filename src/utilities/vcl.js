@@ -48,7 +48,7 @@ CVCL.private.isVoid = (rw) => {
 
 // @Desc: Fetches rw by index
 CVCL.private.fetch = (rw, index) => {
-    return rw.substring(index, index)
+    return rw.substring(index, index + 1)
 }
 
 // @Desc: Fetches rw's line by index
