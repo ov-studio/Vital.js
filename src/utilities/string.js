@@ -18,6 +18,16 @@ vNetworkify.util.string = CString.public
 
 CString.public.isVoid = (baseString) => {
     if (!baseString || (typeof(baseString) != "string")) return false
-    baseString = baseString.replaceAll(/[\n\r\t\s]/g, "")
+    baseString = baseString.replace(/[\n\r\t\s]/g, "")
     return (!baseString.match(/[\W\w]/g) && true) || false
 }
+
+
+CString.public.isVoid = (baseString) => {
+    if (!baseString || (typeof(baseString) != "string")) return false
+    baseString = baseString.replace(/[\n\r\t\s]/g, "")
+    return (!baseString.match(/[\W\w]/g) && true) || false
+}
+
+
+console.log(CString.public.isVoid(`A\n\n\n   B`))
