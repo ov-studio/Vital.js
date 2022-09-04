@@ -63,9 +63,9 @@ CVCL.private.fetchLine = (rw, index) => {
 // @Desc: Parses comment
 CVCL.private.parseComment = (parser, buffer, rw) => {
     if (!parser.isType && (rw == CVCL.private.types.comment)) {
-        const line = CVCL.private.fetchLine(buffer.substring(0, parser.ref))
+        const [line, indexLine] = CVCL.private.fetchLine(buffer.substring(0, parser.ref))
         const rwLines = rw.split(buffer, CVCL.private.types.newline)
-        parser.ref = parser.ref - line[1].length + rwLines[(line[0])].length + 2
+        parser.ref = parser.ref - indexLine.length + rwLines[line].length + 2
     }
     return true
 }
@@ -143,9 +143,9 @@ CVCL.private.parseObject = (parser, buffer, rw, isChild) => {
             if (!CVCL.private.isVoid(parser.index)) {
                 if (parser.isTypeID && (rw == CVCL.private.types.newline)) parser.pointer[(parser.pointer.length + 1)] = parser.index
                 else if (rw == CVCL.private.types.init) {
-                    const line = CVCL.private.fetchLine(string.sub(buffer, 0, parser.ref))
+                    const [line, indexLine] = CVCL.private.fetchLine(string.sub(buffer, 0, parser.ref))
                     const indexTypePadding = (parser.isTypeID && (parser.ref - parser.isTypeID - 1)) || 0
-                    const indexPadding = line[1].length - parser.index.length - indexTypePadding - 1
+                    const indexPadding = indexLine.length - parser.index.length - indexTypePadding - 1
                     if (isChild) {
                         parser.padding = parser.padding || indexPadding - 1
                         if (indexPadding <= parser.padding) {
@@ -155,7 +155,7 @@ CVCL.private.parseObject = (parser, buffer, rw, isChild) => {
                     }
                     if (parser.isTypeID) parser.isTypeID = false, parser.index = Number(parser.index)
                     if (!CVCL.private.isVoid(parser.index)) {
-                        const value, __index, error = CVCL.private.decode(buffer, parser.ref + 1, indexPadding, true)
+                        const [value, __index, error] = CVCL.private.decode(buffer, parser.ref + 1, indexPadding, true)
                         if (!error) {
                             parser.pointer[(parser.index)] = value, parser.ref = __index - 1, parser.index = ""
                         }
@@ -175,7 +175,7 @@ CVCL.private.parseReturn = (parser, buffer) => {
     parser.isParsed = (!parser.isChildErrored && ((parser.isType == "object") || parser.isParsed) && true) || false
     if (!parser.isParsed) {
         if (!parser.isChildErrored || (parser.isChildErrored == 0)) {
-            parser.isErrored = string.format(parser.isErrored, CVCL.private.fetchLine(buffer, parser.ref), (parser.isType && "Malformed "..parser.isType) || "Invalid declaration")
+            parser.isErrored = string.format(parser.isErrored, CVCL.private.fetchLine(buffer, parser.ref), (parser.isType && "Malformed " + parser.isType) || "Invalid declaration")
             // TODO: REPLACE LATER
             console.log(parser.isErrored)
         }
