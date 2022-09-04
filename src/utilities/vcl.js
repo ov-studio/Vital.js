@@ -55,8 +55,7 @@ CVCL.private.fetch = (rw, index) => {
 CVCL.private.fetchLine = (rw, index) => {
     if (rw) {
         const rwLines = rw.substring(0, index).split(CVCL.private.types.newline)
-        const rwLength = rwLines.length
-        return [Math.max(1, rwLength), rwLines[rwLength] || ""]
+        return [Math.max(1, rwLines.length), rwLines[rwLines.length] || ""]
     }
     return false
 }
@@ -145,13 +144,12 @@ CVCL.private.parseObject = (parser, buffer, rw, isChild) => {
                 if (parser.isTypeID && (rw == CVCL.private.types.newline)) parser.pointer[(#parser.pointer + 1)] = parser.index
                 else if (rw == CVCL.private.types.init) {
                     const line = CVCL.private.fetchLine(string.sub(buffer, 0, parser.ref))
-                    const indexLength = parser.index.length
                     const indexTypePadding = (parser.isTypeID && (parser.ref - parser.isTypeID - 1)) || 0
-                    const indexPadding = line[1].length - indexLength - indexTypePadding - 1
+                    const indexPadding = line[1].length - parser.index.length - indexTypePadding - 1
                     if (isChild) {
                         parser.padding = parser.padding || indexPadding - 1
                         if (indexPadding <= parser.padding) {
-                            parser.ref = parser.ref - indexLength - indexTypePadding
+                            parser.ref = parser.ref - parser.index.length - indexTypePadding
                             return false
                         }
                     }
