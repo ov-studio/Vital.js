@@ -226,20 +226,20 @@ CVCL.private.decode = (buffer, ref, padding, isChild) => {
         buffer = string.detab(buffer).gsub(CVCL.private.types.carriageline, "")
         buffer = (!isChild && (CVCL.private.fetch(buffer, buffer.length) != CVCL.private.types.newline) && (buffer + CVCL.private.types.newline)) || buffer   
     }
-    while(parser.ref <= buffer.length) do
+    while(parser.ref <= buffer.length) do {
         CVCL.private.parseComment(parser, buffer, CVCL.private.fetch(buffer, parser.ref))
         if (isChild) {
             parser.isSkipAppend = false
-            if (!CVCL.private.parseBoolean(parser, buffer, CVCL.private.fetch(buffer, parser.ref))) break end
-            if (!CVCL.private.parseNumber(parser, buffer, CVCL.private.fetch(buffer, parser.ref))) break end
-            if (!CVCL.private.parseString(parser, buffer, CVCL.private.fetch(buffer, parser.ref))) break end
-            if (parser.isType && !parser.isSkipAppend && !parser.isParsed) parser.value = parser.value..CVCL.private.fetch(buffer, parser.ref) end
+            if (!CVCL.private.parseBoolean(parser, buffer, CVCL.private.fetch(buffer, parser.ref))) break
+            if (!CVCL.private.parseNumber(parser, buffer, CVCL.private.fetch(buffer, parser.ref))) break
+            if (!CVCL.private.parseString(parser, buffer, CVCL.private.fetch(buffer, parser.ref))) break
+            if (parser.isType && !parser.isSkipAppend && !parser.isParsed) parser.value = parser.value..CVCL.private.fetch(buffer, parser.ref)
         }
-        parser.isType = (!parser.isType && (!isChild || isChild) && ((CVCL.private.fetch(buffer, parser.ref) == CVCL.private.types.list) || !CVCL.private.isVoid(CVCL.private.fetch(buffer, parser.ref))) && "object") || parser.isType
-        if (!CVCL.private.parseObject(parser, buffer, CVCL.private.fetch(buffer, parser.ref), isChild)) break end
-        if (isChild && !parser.isChildErrored && parser.isParsed) break end
+        parser.isType = (!parser.isType && ((CVCL.private.fetch(buffer, parser.ref) == CVCL.private.types.list) || !CVCL.private.isVoid(CVCL.private.fetch(buffer, parser.ref))) && "object") || parser.isType
+        if (!CVCL.private.parseObject(parser, buffer, CVCL.private.fetch(buffer, parser.ref), isChild)) break
+        if (isChild && !parser.isChildErrored && parser.isParsed) break
         parser.ref = parser.ref + 1
-    end
+    }
     return CVCL.private.parseReturn(parser, buffer)
 }
 CVCL.public.decode = (buffer) => {return CVCL.private.decode(buffer)}
