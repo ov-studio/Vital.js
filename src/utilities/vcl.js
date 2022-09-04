@@ -154,7 +154,7 @@ CVCL.private.parseObject = (parser, buffer, rw, isChild) => {
                         }
                     }
                     if (parser.isTypeID) parser.isTypeID = false, parser.index = Number(parser.index)
-                    if (not CVCL.private.isVoid(parser.index)) {
+                    if (!CVCL.private.isVoid(parser.index)) {
                         const value, __index, error = CVCL.private.decode(buffer, parser.ref + 1, indexPadding, true)
                         if (!error) {
                             parser.pointer[(parser.index)] = value, parser.ref = __index - 1, parser.index = ""
@@ -171,20 +171,22 @@ CVCL.private.parseObject = (parser, buffer, rw, isChild) => {
     return true
 }
 
-/*
-function CVCL.private.parseReturn(parser, buffer)
-    parser.isParsed = (not parser.isChildErrored && ((parser.isType == "object") || parser.isParsed) && true) || false
-    if not parser.isParsed then
-        if not parser.isChildErrored || (parser.isChildErrored == 0) then
+CVCL.private.parseReturn = (parser, buffer) => {
+    parser.isParsed = (!parser.isChildErrored && ((parser.isType == "object") || parser.isParsed) && true) || false
+    if (!parser.isParsed) {
+        if (!parser.isChildErrored || (parser.isChildErrored == 0)) {
             parser.isErrored = string.format(parser.isErrored, CVCL.private.fetchLine(buffer, parser.ref), (parser.isType && "Malformed "..parser.isType) || "Invalid declaration")
-            imports.outputDebugString(parser.isErrored)
-        end
-        return false, false, true
-    elseif (parser.isType == "object") then return parser.pointer, parser.ref
-    elseif (parser.isType == "bool") then return ((parser.value == "true") && true) || false, parser.ref
-    else return ((parser.isType == "number" && Number(parser.value)) || parser.value), parser.ref end
-end
+            // TODO: REPLACE LATER
+            console.log(parser.isErrored)
+        }
+        return [false, false, true]
+    }
+    else if (parser.isType == "object") return [parser.pointer, parser.ref]
+    else if (parser.isType == "bool") return [((parser.value == "true") && true) || false, parser.ref]
+    else return [((parser.isType == "number" && Number(parser.value)) || parser.value), parser.ref]
+}
 
+/*
 function CVCL.private.encode(buffer, padding)
     if not buffer || (imports.type(buffer) ~= "table") then return false end
     padding = padding || ""
