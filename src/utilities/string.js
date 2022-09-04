@@ -29,5 +29,9 @@ CString.public.isVoid = (baseString) => {
     return (!baseString.match(/[\W\w]/g) && true) || false
 }
 
+CString.public.detab = (baseString) => {
+    if (!baseString || (typeof(baseString) != "string")) return false
+    return baseString.replace(/[\t"]/g, "    ")
+}
 
-console.log(CString.public.isVoid(`A\n\n\n   B`))
+console.log(CString.public.detab(`A\tB`))
