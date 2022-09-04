@@ -233,7 +233,7 @@ CVCL.private.decode = (buffer, ref, padding, isChild) => {
             if (!CVCL.private.parseBoolean(parser, buffer, CVCL.private.fetch(buffer, parser.ref))) break
             if (!CVCL.private.parseNumber(parser, buffer, CVCL.private.fetch(buffer, parser.ref))) break
             if (!CVCL.private.parseString(parser, buffer, CVCL.private.fetch(buffer, parser.ref))) break
-            if (parser.isType && !parser.isSkipAppend && !parser.isParsed) parser.value = parser.value..CVCL.private.fetch(buffer, parser.ref)
+            if (parser.isType && !parser.isSkipAppend && !parser.isParsed) parser.value = parser.value + CVCL.private.fetch(buffer, parser.ref)
         }
         parser.isType = (!parser.isType && ((CVCL.private.fetch(buffer, parser.ref) == CVCL.private.types.list) || !CVCL.private.isVoid(CVCL.private.fetch(buffer, parser.ref))) && "object") || parser.isType
         if (!CVCL.private.parseObject(parser, buffer, CVCL.private.fetch(buffer, parser.ref), isChild)) break
