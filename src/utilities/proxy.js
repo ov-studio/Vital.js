@@ -13,8 +13,8 @@
 // Class: Proxy //
 ///////////////////
 
-const CProxy = vNetworkify.util.createClass()
-vNetworkify.util.proxy = CProxy.public
+const CProxy = vKit.Class()
+vKit.proxy = CProxy.public
 
 
 /////////////////////
@@ -23,7 +23,7 @@ vNetworkify.util.proxy = CProxy.public
 
 // @Desc: Creates a fresh proxy of desired object/class
 CProxy.public.addMethod("create", (data, exec) => {
-    if ((!vNetworkify.util.isObject(data) || !vNetworkify.util.isClass(data)) || !vNetworkify.util.isFunction(exec)) return false
+    if ((!vKit.isObject(data) || !vKit.isClass(data)) || !vKit.isFunction(exec)) return false
     return CProxy.public.createInstance(data, exec)
 })
 
@@ -38,7 +38,7 @@ CProxy.private.onInitialize = (self, data) => {
         },
         get(data, property) {
             const value = data[property]
-            if (vNetworkify.util.isObject(value)) {
+            if (vKit.isObject(value)) {
                 if (!private.buffer.has(value)) private.buffer.set(value, CProxy.private.onInitialize(self, value, private.exec))
                 return private.buffer.get(value)
             }
@@ -46,7 +46,7 @@ CProxy.private.onInitialize = (self, data) => {
         },
         deleteProperty(data, property) {
             const value = data[property]
-            if (vNetworkify.util.isObject(value) && private.buffer.has(value)) private.buffer.delete(value)
+            if (vKit.isObject(value) && private.buffer.has(value)) private.buffer.delete(value)
             return true
         }
     })

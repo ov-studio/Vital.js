@@ -13,8 +13,8 @@
 // Class: Template //
 //////////////////////
 
-const CTemplate = vNetworkify.util.createClass()
-vNetworkify.util.template = CTemplate.public
+const CTemplate = vKit.Class()
+vKit.template = CTemplate.public
 CTemplate.private.buffer = {}
 
 
@@ -24,14 +24,14 @@ CTemplate.private.buffer = {}
 
 // @Desc: Creates a fresh template from URL
 CTemplate.public.addMethod("create", (name, data) => {
-    if (!vNetworkify.util.isString(name) || !vNetworkify.util.isString(data) || CTemplate.private.buffer[name]) return false
+    if (!vKit.isString(name) || !vKit.isString(data) || CTemplate.private.buffer[name]) return false
     CTemplate.private.buffer[name] = CTemplate.public.createInstance(name, data)
     return CTemplate.private.buffer[name]
 })
 
 // @Desc: Creates a fresh template from URL
 CTemplate.public.addMethod("destroy", (name) => {
-    if (!vNetworkify.util.isString(name) || !CTemplate.private.buffer[name]) return false
+    if (!vKit.isString(name) || !CTemplate.private.buffer[name]) return false
     return CTemplate.private.buffer[name].destroy()
 })
 
@@ -68,7 +68,7 @@ var template = `
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <script type="text/javascript" src="vnetworkify-client.js"></script>
+  <script type="text/javascript" src="vNetwork-client.js"></script>
   <script type="text/javascript" src="test.js"></script>
   <h1 :test="1">Testing</h1>
 </body>
