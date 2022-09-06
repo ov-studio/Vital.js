@@ -1,5 +1,3 @@
 require("@vstudio/vNetworkify")
-require("./utilities/string")
 require("./utilities/proxy")
-require("./utilities/vcl")
 require("./utilities/template")
